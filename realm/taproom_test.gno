@@ -305,3 +305,18 @@ func TestRenderJSON(cur realm, t *testing.T) {
 	uassert.True(t, strings.Contains(out, `"answers":[{"hunter":"`+bob.String()+`","note":"done","link":"https://example.com/x"`), "answers")
 	uassert.True(t, strings.HasPrefix(out, "{") && strings.HasSuffix(out, "}"), "object")
 }
+
+// A code realm (not an EOA) as the immediate caller must not be able to fund a
+// quest. This is the code-realm case of the IsUserCall guard; a real
+// `maketx run` ephemeral realm is not simulated by the test harness.
+func TestPostQuestRejectsCodeRealmCaller(cur realm, t *testing.T) {
+	defer reset()
+	issue(2_000_000)
+	testing.SetRealm(testing.NewCodeRealm("gno.land/r/other/caller"))
+	testing.SetOriginSend(chain.Coins{{"ugnot", 2_000_000}})
+	uassert.AbortsWithMessage(t, cur, "only a direct user call (maketx call) can fund a quest", func() {
+		PostQuest(cross(cur), "t", "d", 3)
+	})
+	uassert.Equal(t, 0, Count())
+	uassert.Equal(t, int64(0), TotalEscrow())
+}

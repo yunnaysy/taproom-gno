@@ -1,4 +1,4 @@
---- PASS: TestPostQuest (0.01s)
+--- PASS: TestPostQuest (0.00s)
 --- PASS: TestPostQuestValidation (0.00s)
 --- PASS: TestSubmitRules (0.00s)
 --- PASS: TestAwardPaysWinnerOnce (0.00s)
@@ -10,4 +10,5 @@
 --- PASS: TestGnotFormat (0.00s)
 --- PASS: TestSafeLink (0.00s)
 --- PASS: TestRenderJSON (0.00s)
-ok      . 	1.58s
+--- PASS: TestPostQuestRejectsCodeRealmCaller (0.00s)
+ok      . 	1.24s

@@ -14,25 +14,23 @@ const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const rd=f=>fs.readFileSync(O+f,'utf8').trim();
 const tx=(f)=>{const t=rd(f);const h=(t.match(/HEIGHT:\s+(\d+)/)||[])[1],x=(t.match(/TX HASH:\s+(\S+)/)||[])[1];return {h,x}};
 const cards={
- '01-title':wrap(`<span class=pill>Gnome Tavern hackathon · Gno.land</span><h1>Taproom</h1><p class=l>An escrowed bounty board.<br>Pin a quest, lock the reward, pay the best answer.</p><p class=l style="color:#78716c;font-size:20px;margin-top:30px">Realm deployed on the Onyx testnet (onyx-1) · web UI reads the chain live</p>`),
- '02-why':wrap(`<span class=pill>The problem</span><h2>Small bounties run on trust</h2><div class=glass><ul><li>Poster promises to pay. Hunter hopes.</li><li><b>Taproom locks the reward in the realm</b> when the quest is pinned.</li><li>Only an address that actually submitted can be paid.</li><li>A silent poster cannot take the money back while hunters wait.</li></ul></div>`),
- '03-tests':wrap(`<span class=pill>Step 1 · Tested</span><h2>12 Gno tests, all passing</h2><pre>${esc(rd('gno-test-output.txt').replace(/--- PASS: /g,'<PASS> ').replace(/\n/g,'\n'))}</pre>`,'gno test -v ./realm — escrow rules, validation, markdown/JSON escaping.'),
- '04-deploy':(()=>{const a=tx('tx-deploy.txt');return wrap(`<span class=pill>Step 2 · Deployed on Onyx</span><h2>gnokey maketx addpkg</h2><pre>$ scripts/deploy-onyx.sh taproom-poster
-Deploying gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom
-OK!
-GAS USED:   25730774
-HEIGHT:     ${a.h}
-TX HASH:    ${a.x}</pre>`,'Package path: gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom · chain onyx-1')})(),
- '05-flow':(()=>{const s=tx('tx-submit-1.txt'),a=tx('tx-award-1.txt'),r=tx('tx-reclaim-2.txt'),q=tx('tx-postquest-1.txt');return wrap(`<span class=pill>Step 3 · The full flow on-chain</span><h2>Post → Submit → Award → Reclaim</h2><pre><span class=d># poster pins quest #1 with 5 GNOT locked in escrow</span>
-PostQuest   h${q.h}  ${q.x}
-<span class=d># hunter (second key) answers</span>
-Submit      h${s.h}  ${s.x}
-<span class=d># poster awards: escrow paid in the same tx</span>
-Award       h${a.h}  ${a.x}
-<span class=d># quest #2 had no answers: poster takes the 3 GNOT back</span>
-Reclaim     h${r.h}  ${r.x}</pre>`,'Every hash above is a real transaction on onyx-1.')})(),
- '06-safety':wrap(`<span class=pill>Design</span><h2>Built to be safe</h2><div class=glass><ul><li>Funds only from a direct user call, one coin type (ugnot), min 1 GNOT</li><li>State changes before coins move; every payout checks the escrow invariant</li><li>Hunters protected by a 7-day review window before a poster can reclaim</li><li>User text escaped for markdown and JSON; links must be plain https</li></ul></div>`),
- '07-end':wrap(`<span class=pill>Try it</span><h1>Taproom</h1><p class=l><b>Live UI:</b> taproom-gno.vercel.app</p><p class=l><b>Realm:</b> gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom</p><p class=l><b>Code:</b> github.com/yunnaysy/taproom-gno (MIT)</p><p class=l style="color:#78716c;font-size:20px;margin-top:26px">Rewards are native ugnot on the Onyx testnet. No real funds are involved.</p>`),
+ '01-title':wrap(`<span class=pill>Gnome Tavern hackathon · Gno.land</span><h1>Taproom</h1><p class=l>A funded-at-creation bounty board.<br>The reward is locked in the realm when the quest is posted.</p><p class=l style="color:#78716c;font-size:20px;margin-top:30px">Realm on the Onyx testnet (onyx-1) · CLI-signed transactions · live web view</p>`),
+ '02-why':wrap(`<span class=pill>The problem</span><h2>Bounties depend on a promise</h2><div class=glass><ul><li>The poster promises to pay. The hunter hopes.</li><li><b>Taproom locks the reward in a Gno realm</b> when the quest is created.</li><li>Only an address with a recorded submission can be awarded; the payout is on-chain.</li><li>Not a guarantee: the poster still decides, and there is no dispute process.</li></ul></div>`),
+ '03-deploy':(()=>{const a=tx('tx-deploy.txt'),q=tx('tx-postquest-1.txt'),q3=tx('tx-postquest-3.txt');return wrap(`<span class=pill>LIVE ON ONYX · onyx-1 · funded escrow</span><h2>Deploy and post</h2><pre><span class=d># addpkg: realm path gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom</span>
+addpkg       h${a.h}  ${a.x}
+<span class=d># PostQuest #1: 5 GNOT attached and locked (escrow 5)</span>
+PostQuest    h${q.h}  ${q.x}
+<span class=d># later, PostQuest #3: 2 GNOT locked, left open</span>
+PostQuest    h${q3.h}  ${q3.x}</pre>`,'Real transactions. Each hash is queryable on the Onyx RPC; links are in the README.')})(),
+ '04-award':(()=>{const s=tx('tx-submit-1.txt'),a=tx('tx-award-1.txt');return wrap(`<span class=pill>LIVE ON ONYX · onyx-1 · submit and award</span><h2>Hunter answers, poster awards</h2><pre><span class=d># hunter key submits an answer to quest #1 (escrow unchanged)</span>
+Submit       h${s.h}  ${s.x}
+<span class=d># poster awards: 5 GNOT paid to the hunter in the same tx (escrow 8 to 3)</span>
+Award        h${a.h}  ${a.x}</pre><p class=l style="margin-top:22px;font-size:22px"><b>Disclosure:</b> poster and hunter are two throwaway test keys, both controlled by the author. This demonstrates the flow; it is not an independent bounty result.</p>`)})(),
+ '05-reclaim':(()=>{const r=tx('tx-reclaim-2.txt');return wrap(`<span class=pill>LIVE ON ONYX · onyx-1 · reclaim</span><h2>Reclaim with no answers</h2><pre><span class=d># quest #2 had no answers: poster takes the 3 GNOT back (escrow 3 to 0)</span>
+Reclaim      h${r.h}  ${r.x}</pre><div class=glass style="margin-top:24px"><ul><li>With no answers a poster can withdraw at any time.</li><li>With answers, reclaim is blocked until deadline + 7 days (the review window). That wait was <b>not</b> demonstrated live; it is covered by a local test.</li></ul></div>`)})(),
+ '06-tests':wrap(`<span class=pill>LOCAL GnoVM TESTS · mocked chain, not Onyx</span><h2>13 Gno tests, all passing</h2><pre>${esc(rd('gno-test-output.txt').replace(/--- PASS: /g,'PASS ').replace(/ \(\d+\.\d+s\)/g,''))}</pre>`,'gno test -v ./realm. Rules, validation, escrow, Markdown and JSON escaping. Names and coverage: README.'),
+ '07-limits':wrap(`<span class=pill>Design and limits</span><h2>What is enforced, and what is not</h2><div class=glass><ul><li>Funding needs a direct user call (IsUserCall), one coin: ugnot, at least 1 GNOT</li><li>Before each payout: realm balance &ge; totalEscrow</li><li>Output: Markdown and JSON escaping, https-only links</li><li>Not included: dispute process, auto-award, hunter guarantee, wallet extension</li></ul></div>`),
+ '08-end':wrap(`<span class=pill>Links</span><h1>Taproom</h1><p class=l><b>Live UI:</b> taproom-gno.vercel.app</p><p class=l><b>Realm:</b> gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom</p><p class=l><b>Code and tx table:</b> github.com/yunnaysy/taproom-gno (MIT)</p><p class=l style="color:#78716c;font-size:20px;margin-top:26px">Testnet GNOT only. CLI-signed with gnokey.</p>`),
 };
 (async()=>{const b=await p.launch({executablePath:'/usr/bin/google-chrome',headless:'new',args:['--no-sandbox']});const pg=await b.newPage();await pg.setViewport({width:1280,height:720});
  for(const [k,v] of Object.entries(cards)){await pg.setContent(v);await pg.screenshot({path:`work/card-${k}.png`});}

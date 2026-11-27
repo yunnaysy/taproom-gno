@@ -27,7 +27,7 @@
     <section class="hero">
       <p class="eyebrow">Built on Gno.land</p>
       <h1>Pin a quest.<br>Lock the reward.<br>Pay the best answer.</h1>
-      <p class="lede">Taproom is an escrowed bounty board. The reward sits in the realm until the poster picks a winner, and a silent poster can never starve hunters who delivered.</p>
+      <p class="lede">Taproom is an escrowed bounty board. The reward is locked in the realm when the quest is posted. Only a recorded submitter can be awarded. The poster decides; there is no dispute process.</p>
       <div class="stats" id="stats"></div>
     </section>
 
@@ -48,7 +48,7 @@
       <div class="glass composer">
         <div>
           <h2>Post a quest</h2>
-          <p class="muted">Fill this in and copy the generated <code>gnokey</code> command. Your key never touches this page.</p>
+          <p class="muted">Fill this in and copy the generated <code>gnokey</code> command. Signing happens outside this page, in your own gnokey.</p>
         </div>
         <form id="composer" autocomplete="off">
           <label>Title<input name="title" maxlength="80" placeholder="What needs doing?" required></label>
@@ -70,7 +70,7 @@
         <article class="glass"><b>1</b><h3>Pin</h3><p>A poster calls <code>PostQuest</code> with a title, details, a window and at least 1 GNOT attached. The reward is locked in the realm.</p></article>
         <article class="glass"><b>2</b><h3>Answer</h3><p>Each hunter sends one answer with a note and an optional https link while the window is open.</p></article>
         <article class="glass"><b>3</b><h3>Award</h3><p>The poster picks a winner and the escrow is paid in the same transaction.</p></article>
-        <article class="glass"><b>4</b><h3>Reclaim</h3><p>No answers: withdraw any time. With answers: wait for the window plus a 7-day review period.</p></article>
+        <article class="glass"><b>4</b><h3>Reclaim</h3><p>No answers: withdraw any time. With answers: blocked until the deadline plus a 7-day review window, after which the poster can reclaim.</p></article>
       </div>
     </section>
   </main>
