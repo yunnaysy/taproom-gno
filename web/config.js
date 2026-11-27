@@ -12,8 +12,7 @@ window.TAPROOM_NETWORKS = {
     label: "Onyx testnet",
     rpc: "https://rpc.onyx.testnets.gno.land:443",
     chainId: "onyx-1",
-    // Set this to gno.land/r/<your g1 address>/taproom after deploying (see DEPLOY.md).
-    realm: "",
+    realm: "gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom",
     gnoweb: "https://onyx.testnets.gno.land",
   },
 };

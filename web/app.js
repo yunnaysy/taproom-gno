@@ -2,7 +2,10 @@
 // Taproom front end: reads the realm's JSON view over JSON-RPC and renders it.
 // All user-supplied text goes through textContent, never innerHTML.
 
-const NETS = window.TAPROOM_NETWORKS;
+const ALL_NETS = window.TAPROOM_NETWORKS;
+// The local chain is only reachable from the developer's own machine.
+const isLocal = ["localhost", "127.0.0.1", ""].includes(location.hostname);
+const NETS = Object.fromEntries(Object.entries(ALL_NETS).filter(([k]) => isLocal || k !== "local"));
 const $ = (s, r = document) => r.querySelector(s);
 const el = (tag, cls, text) => {
   const n = document.createElement(tag);
@@ -11,8 +14,8 @@ const el = (tag, cls, text) => {
   return n;
 };
 
-const state = { net: localStorage.getItem("taproom.net") || "local", data: null, filter: "open" };
-if (!NETS[state.net]) state.net = "local";
+const state = { net: localStorage.getItem("taproom.net") || (isLocal ? "local" : "onyx"), data: null, filter: "open" };
+if (!NETS[state.net]) state.net = Object.keys(NETS)[0];
 
 const gnot = (u) => {
   const whole = Math.floor(u / 1e6), frac = u % 1e6;

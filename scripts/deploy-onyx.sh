@@ -11,9 +11,10 @@ TMP=$(mktemp -d); cp realm/*.gno "$TMP"/
 printf 'module = "%s"\ngno = "0.9"\n' "$PKG" > "$TMP/gnomod.toml"
 rm -f "$TMP"/*_test.gno          # tests are not deployed
 echo "Deploying $PKG as $KEY ..."
-gnokey maketx addpkg -pkgpath "$PKG" -pkgdir "$TMP" \
+PWFLAG=(); [ -n "${GNOKEY_PW:-}" ] && PWFLAG=(-insecure-password-stdin)
+echo "${GNOKEY_PW:-}" | gnokey maketx addpkg -pkgpath "$PKG" -pkgdir "$TMP" \
   -gas-fee 1000000ugnot -gas-wanted 100000000 -broadcast \
-  -chainid onyx-1 -remote https://rpc.onyx.testnets.gno.land:443 "$KEY"
+  -chainid onyx-1 -remote https://rpc.onyx.testnets.gno.land:443 "${PWFLAG[@]}" "$KEY"
 echo
 echo "Deployed. Put this in web/config.js (onyx.realm): $PKG"
 echo "View it: https://onyx.testnets.gno.land/r/${ADDR}/taproom"

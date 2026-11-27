@@ -4,7 +4,7 @@
 
 Built for the [Gnome Tavern hackathon](https://dorahacks.io/hackathon/gnome-tavern/). Written in Gno, with a dependency-free web front end that reads the chain live.
 
-> Status: realm, tests and front end are finished and verified on a local `gnodev` chain. Deployment to the Onyx testnet is the one remaining step (see [DEPLOY.md](DEPLOY.md)). Screenshots in `screenshots/` come from a local chain seeded with example quests, not from the testnet.
+> Status: deployed on the Onyx testnet at `gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom` (tx hashes in [onchain/DEPLOYMENT.md](onchain/DEPLOYMENT.md)). Live UI: https://taproom-gno.vercel.app. Screenshots named `onyx-*.png` come from the live deployment; `01`–`05` come from a local chain.
 
 ## Why
 
@@ -68,7 +68,7 @@ Pure white page, charcoal text, frosted-glass cards and a floating pill nav. It 
 - Rewards are native ugnot only. GRC20 rewards are a natural next step.
 - No dispute process: the poster decides, and the only protection for hunters is the review period. That is deliberate for a first version.
 - No in-browser wallet integration yet (commands are copied for `gnokey`).
-- Verified against the Gno v1.8.0 toolchain; the Onyx testnet reports v1.0.0-rc.0, whose stdlib surface (`chain/banker`, `chain/runtime/unsafe`, `cur realm`) matches what this realm uses, but the deployment itself has not been done yet.
+- Verified against the Gno v1.8.0 toolchain; the Onyx testnet reports v1.0.0-rc.0, whose stdlib surface (`chain/banker`, `chain/runtime/unsafe`, `cur realm`) matches what this realm uses, and the deployment on Onyx succeeded.
 
 ## License
 
