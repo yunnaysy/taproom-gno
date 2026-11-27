@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taproom — an escrowed bounty board on Gno.land</title>
+  <meta name="description" content="Pin a quest, lock the reward in escrow, pay the best answer. A Gno.land realm with a web front end.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="nav" role="navigation" aria-label="Main">
+    <a class="brand" href="#top"><span class="dot"></span>Taproom</a>
+    <nav>
+      <a href="#board">Board</a>
+      <a href="#post">Post a quest</a>
+      <a href="#how">How it works</a>
+    </nav>
+    <label class="net">
+      <span class="sr">Network</span>
+      <select id="network"></select>
+    </label>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">Built on Gno.land</p>
+      <h1>Pin a quest.<br>Lock the reward.<br>Pay the best answer.</h1>
+      <p class="lede">Taproom is an escrowed bounty board. The reward sits in the realm until the poster picks a winner, and a silent poster can never starve hunters who delivered.</p>
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <section id="board" class="section">
+      <div class="section-head">
+        <h2>The board</h2>
+        <div class="seg" id="filter" role="tablist" aria-label="Filter quests">
+          <button data-f="open" class="on">Open</button>
+          <button data-f="settled">Settled</button>
+          <button data-f="all">All</button>
+        </div>
+      </div>
+      <div id="notice" class="notice" hidden></div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section id="post" class="section">
+      <div class="glass composer">
+        <div>
+          <h2>Post a quest</h2>
+          <p class="muted">Fill this in and copy the generated <code>gnokey</code> command. Your key never touches this page.</p>
+        </div>
+        <form id="composer" autocomplete="off">
+          <label>Title<input name="title" maxlength="80" placeholder="What needs doing?" required></label>
+          <label>Details<textarea name="details" maxlength="600" rows="4" placeholder="Describe the deliverable and how you will judge it." required></textarea></label>
+          <div class="row">
+            <label>Reward (GNOT)<input name="reward" type="number" min="1" step="0.1" value="5" required></label>
+            <label>Window (days)<input name="days" type="number" min="1" max="60" value="7" required></label>
+            <label>Key name<input name="key" value="mykey" required></label>
+          </div>
+          <button class="btn" type="submit">Copy command</button>
+          <pre id="composer-out" class="cmd" hidden></pre>
+        </form>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <h2>How it works</h2>
+      <div class="steps">
+        <article class="glass"><b>1</b><h3>Pin</h3><p>A poster calls <code>PostQuest</code> with a title, details, a window and at least 1 GNOT attached. The reward is locked in the realm.</p></article>
+        <article class="glass"><b>2</b><h3>Answer</h3><p>Each hunter sends one answer with a note and an optional https link while the window is open.</p></article>
+        <article class="glass"><b>3</b><h3>Award</h3><p>The poster picks a winner and the escrow is paid in the same transaction.</p></article>
+        <article class="glass"><b>4</b><h3>Reclaim</h3><p>No answers: withdraw any time. With answers: wait for the window plus a 7-day review period.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span id="realm-line"></span>
+    <span>Reads live from the chain. Nothing on this page is hard-coded.</span>
+  </footer>
+
+  <dialog id="sheet" class="sheet"></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
