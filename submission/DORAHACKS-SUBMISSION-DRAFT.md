@@ -8,7 +8,7 @@
 - Deployment (Onyx testnet, onyx-1): `gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom`
 - gnoweb: https://onyx.testnets.gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom
 - Live UI: https://taproom-gno.vercel.app
-- Demo video: <YOUTUBE_URL_PLACEHOLDER> (file: `video/taproom-demo.mp4`)
+- Demo video: https://youtu.be/ncO-YQctdUE (file: `video/taproom-demo.mp4`)
 
 ## Short description
 Small bounties often depend on an informal promise: the poster promises to pay, and the hunter hopes they will. Taproom changes that arrangement. A poster funds the bounty when creating a quest, locking the reward in a Gno.land realm. Only a recorded submitter can receive the award, and the payout is an on-chain transfer in the same transaction.

@@ -2,7 +2,7 @@
 
 **A funded-at-creation bounty board on Gno.land**, with CLI-signed transactions and a live web view.
 
-Entry for the [Gnome Tavern hackathon](https://dorahacks.io/hackathon/gnome-tavern/). Live UI: https://taproom-gno.vercel.app. Demo: `video/taproom-demo.mp4`.
+Entry for the [Gnome Tavern hackathon](https://dorahacks.io/hackathon/gnome-tavern/). Live UI: https://taproom-gno.vercel.app. Demo: https://youtu.be/ncO-YQctdUE.
 
 ## What it is, honestly
 
