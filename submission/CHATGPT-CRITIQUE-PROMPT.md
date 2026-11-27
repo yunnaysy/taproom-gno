@@ -1,0 +1,2 @@
+Critique this hackathon entry as a strict Gno.land judge (technical quality 40%, user appeal 20%, creativity 20%, docs and demo 20%). Attached: README.md, submission/DORAHACKS-SUBMISSION-DRAFT.md and the video script below. List: (1) claims that are overstated or unsupported, (2) missing things a judge will look for, (3) the 5 highest-impact edits to the text. Do not invent features.
+Video script: title, problem, 12 passing tests, deploy tx on Onyx, post/submit/award/reclaim hashes, live UI screen recording, safety design, links.

@@ -1,0 +1,13 @@
+--- PASS: TestPostQuest (0.01s)
+--- PASS: TestPostQuestValidation (0.00s)
+--- PASS: TestSubmitRules (0.00s)
+--- PASS: TestAwardPaysWinnerOnce (0.00s)
+--- PASS: TestReclaimNoSubmissions (0.00s)
+--- PASS: TestReclaimBlockedWhileHuntersWait (0.00s)
+--- PASS: TestEscrowSeparatedBetweenQuests (0.00s)
+--- PASS: TestRenderEscapesUserText (0.00s)
+--- PASS: TestRenderRoutes (0.00s)
+--- PASS: TestGnotFormat (0.00s)
+--- PASS: TestSafeLink (0.00s)
+--- PASS: TestRenderJSON (0.00s)
+ok      . 	1.58s

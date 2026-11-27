@@ -4,7 +4,16 @@
 
 Built for the [Gnome Tavern hackathon](https://dorahacks.io/hackathon/gnome-tavern/). Written in Gno, with a dependency-free web front end that reads the chain live.
 
-> Status: deployed on the Onyx testnet at `gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom` (tx hashes in [onchain/DEPLOYMENT.md](onchain/DEPLOYMENT.md)). Live UI: https://taproom-gno.vercel.app. Screenshots named `onyx-*.png` come from the live deployment; `01`–`05` come from a local chain.
+> Status: deployed on the Onyx testnet at `gno.land/r/g1jacahne0v3s27d6g872s8qu30ryvuec3lzsjej/taproom` (tx hashes in [onchain/DEPLOYMENT.md](onchain/DEPLOYMENT.md)). Live UI: https://taproom-gno.vercel.app. Screenshots named `live-*.png` come from the live deployment and UI; `01`–`05` come from a local chain. A 100-second demo video is built from real output and a real screen recording (`video/`).
+
+## Judging map
+
+| Criterion | Where to look |
+| --- | --- |
+| Technical quality (40%) | `realm/` (12 passing tests incl. escrow invariant, replay and injection cases), the full on-chain flow in `onchain/DEPLOYMENT.md` |
+| User appeal (20%) | Live UI https://taproom-gno.vercel.app, gnoweb board, reputation cards |
+| Creativity (20%) | Escrow with a review window that protects hunters from silent posters |
+| Docs and demo (20%) | This README, `DEPLOY.md`, `video/taproom-demo.mp4` |
 
 ## Why
 
