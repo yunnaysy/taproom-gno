@@ -49,8 +49,8 @@ screenshots/  front end against a local chain
 curl -fsSL https://raw.githubusercontent.com/gnolang/gno/master/misc/install.sh | sh
 export PATH=$HOME/.gno/bin:$PATH
 
-# tests (needs a Gno checkout for GNOROOT/examples; the installed binary alone also works on recent versions)
-cd realm && gno test -v .
+# tests (run here with GNOROOT pointing at a checkout of github.com/gnolang/gno)
+cd realm && GNOROOT=/path/to/gno gno test -v .
 
 # local chain + gnoweb at http://localhost:8888/r/dev/taproom
 gnodev .
